@@ -1,0 +1,54 @@
+.home__container {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  .see_all {
+    display: flex;
+    width: max-content;
+    height: max-content;
+    align-items: center;
+    justify-content: center;
+    align-self: flex-end;
+    gap: 10px;
+    font-size: 2em;
+    margin: 40px 40px 20px 0;
+
+    mat-icon {
+      font-size: 4rem;
+      height: max-content;
+      overflow: visible !important;
+    }
+  }
+}
+
+swiper-container {
+  position: relative;
+  width: 100%;
+  height: 75%;
+  margin-left: 10rem;
+  margin-top: 10rem;
+
+  swiper-slide {
+    display: flex;
+    width: 80%;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 0 12px 4px rgba(15, 15, 15, 0.6);
+    border-radius: 20px;
+    overflow: hidden;
+
+    img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: 50% 50%;
+    }
+  }
+
+}

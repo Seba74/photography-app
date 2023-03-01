@@ -1,0 +1,25 @@
+<section class="gallery__container" [@fadeInOut]>
+    <div class="gallery-wrapper">
+        <div class="gallery-column" #columns *ngFor="let images of imagesPerColumn; let i = index" id="{{i + 1}}">
+            <div class="photo-content" *ngFor="let image of images" (mouseenter)="detectImage('')" (mouseleave)="detectLeaveImage()">
+                <img (click)="onPreviewImage(image._id)" [src]="image.imageUrl" alt="">
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="showMask" class="lightbox__container" @leaveAnimation>
+        <span *ngIf="showCount" class="count">{{currentIndex + 1}}/{{totalImages}} </span>
+        <div *ngIf="isOnPreview" class="close-btn" (mouseenter)="detectHover()" (mouseleave)="detectLeave()">
+            <mat-icon (click)="onClosePreview()">close</mat-icon>
+        </div>
+        <div class="btn-light-carousel btn-prev">
+            <mat-icon (click)="goBack()">chevron_left</mat-icon>
+        </div>
+        <div class="btn-light-carousel btn-next">
+            <mat-icon (click)="goNext()">chevron_right</mat-icon>
+        </div>
+        <div *ngIf="isOnPreview" class="lightbox__image" [@animation]="{value: 'visible'}" (@animation.done)="animationEnd($event)">
+            <img [src]="currentImageOnBox.imageUrl" alt="">
+        </div>
+    </div>
+</section>

@@ -1,1 +1,34 @@
-/* You can add global styles to this file, and also import other style files */
+@import '~@fortawesome/fontawesome-free/css/all.css';
+@import 'src/styles/var.scss';
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    cursor: none;
+}
+
+html, body, #fullheight {
+    min-height: 100% !important;
+    height: 100%;
+}
+
+html {
+    font-size: 62.5%;
+    cursor: none;
+    scroll-behavior: smooth;
+    height: 100%;
+}
+
+body {
+    font-family: 'Roboto', sans-serif; 
+    font-size: 1.2rem;
+    color: $white-color;
+    background-color: $black-color;
+}
+
+::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
+
+::-webkit-scrollbar {display: none;}

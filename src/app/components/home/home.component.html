@@ -1,0 +1,19 @@
+<section class="home__container" [@fadeInOut]>
+        <swiper-container initial-slide="0" slides-per-view="auto" free-mode="true" space-between="30"
+        autoplay-delay="3000" autoplay-disable-on-interaction="false" keyboard="true"
+        >
+            <swiper-slide (mouseenter)="detectImage(sectionsNames[0])" (mouseleave)="detectLeaveImage()">
+              <img src="../../../assets/images/bg-ia.png" alt="">
+            </swiper-slide>
+            <swiper-slide (mouseenter)="detectImage(sectionsNames[1])" (mouseleave)="detectLeaveImage()">
+                <img src="../../../assets/images//bgc.jpg" alt="">
+            </swiper-slide>
+            <swiper-slide (mouseenter)="detectImage(sectionsNames[2])" (mouseleave)="detectLeaveImage()">
+                <img src="../../../assets/images/luxh8.webp" alt="">
+            </swiper-slide>
+        </swiper-container>
+        <div class="see_all" (mouseenter)="detectHover()" (mouseleave)="detectLeave()" routerLink="/gallery">
+            <p>SEE ALL WORK</p>
+            <mat-icon class="animate__animated animate__fadeOutRight animate__infinite animate__slow">arrow_forward</mat-icon>
+        </div>
+</section>
