@@ -24,6 +24,28 @@
   }
 }
 
+.logo {
+  position: fixed;
+  top: 30px;
+  left: 40px;
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 4rem;
+  height: 4rem;
+  border: 0;
+  transition: all .4s $cubic;
+  border-radius: 50%;
+  overflow: hidden;
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: all .4s $cubic;
+  }
+}
+
 .title{
   color: $white-color !important;
   transition: all .4s $cubic;
@@ -56,7 +78,7 @@
 }
 
 .menu-upper {
-  position: absolute;
+  position: fixed;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -103,6 +125,18 @@
         }
       }
     }
+  
+    .active {
+      color: $black-color;
+      cursor: none;
+      transition: color .4s $cubic;
+      &::after{
+        width: 0%;
+        transition: all .4s $cubic;
+        animation: cross .6s $cubic forwards;
+        background-color: $black-color;
+      }
+    }
   }
 }
 
@@ -119,6 +153,16 @@
   font-family: $mori-font;
   font-weight: 700;
   color: $black-color;
+}
+
+.title-text{
+  opacity: 1;
+  transition: all .4s $cubic;
+}
+
+.show-title{
+  opacity: 0;
+  transition: all .4s $cubic;
 }
 
 .social-media {

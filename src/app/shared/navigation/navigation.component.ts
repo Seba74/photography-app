@@ -1,5 +1,5 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, HostListener, Input, Output, ViewChild } from '@angular/core';
 
 
 @Component({
@@ -20,6 +20,7 @@ export class NavigationComponent {
   @Output() isHovering = new EventEmitter<boolean>();
   @Input() showNav: boolean = false;
   @ViewChild('menu') menu!: any;
+  isOnTop: boolean = true;
   showMenu = false;
   x = 0;
   y = 0;
@@ -30,17 +31,32 @@ export class NavigationComponent {
     { name: 'instagram', url: 'https://www.instagram.com/' },
     { name: 'linkedin', url: 'https://www.linkedin.com/' },
   ]
-  routerLinks = [ 'home', 'gallery', 'works', 'contact' ];
+  routerLinks = [
+    { name: 'Home', url: '/' },
+    { name: 'Gallery', url: '/gallery' },
+    { name: 'About', url: '/about' },
+  ];
+
+  @HostListener('window:scroll', ['$event'])
+  onWindowScroll(e: any) {
+    if (window.scrollY > 700) {
+      this.isOnTop = false;
+    } else {
+      this.isOnTop = true;
+    }
+  }
 
   constructor() {}
 
   toggleMenu() {
     this.showMenu = !this.showMenu;
+    this.isOnTop = true;
     this.menuState = this.menuState === 'closed' ? 'open' : 'closed';
   }
-
+  
   closeMenu() {
     this.showMenu = false;
+    this.isOnTop = false;
     this.menuState = 'closed';
   }
 

@@ -10,6 +10,7 @@ import {
   ElementRef,
   HostListener,
   Output,
+  Renderer2,
   ViewChild,
   ViewChildren,
 } from '@angular/core';
@@ -19,6 +20,7 @@ import { Photo } from 'src/app/core/interfaces/photo';
 import { CursorService } from 'src/app/service/cursor.service';
 import { loadPhotos } from 'src/app/state/actions/photo.actions';
 import { AppState } from 'src/app/state/app.state';
+import * as AOS from 'aos';
 
 @Component({
   selector: 'app-gallery',
@@ -60,13 +62,16 @@ export class GalleryComponent {
   currentImageOnBox: Photo = this.images[0];
   currentIndex: number = 0;
   totalImages: number = 0;
+  isDown: boolean = false;
   imagesPerColumn: Array<Photo[]> = [];
 
   @ViewChildren('columns') columns: Array<ElementRef> | undefined = [];
 
   constructor(
     private store: Store<AppState>,
-    private cursorService: CursorService
+    private cursorService: CursorService,
+    private el: ElementRef,
+    private renderer: Renderer2
   ) {
     this.images$ = this.store.select((state) => state.photos.photos);
     this.loadingImages$ = this.store.select((state) => state.photos.loading);
@@ -80,6 +85,12 @@ export class GalleryComponent {
       document.body.scrollTop ||
       0;
 
+    if(scrollTop < 300) {
+      this.isDown = false;
+    }else{
+      this.isDown = true;
+    }
+    
     const leftColumn = this.columns!.find(
       (column) => column.nativeElement.id === '1'
     );
@@ -90,12 +101,24 @@ export class GalleryComponent {
       (column) => column.nativeElement.id === '3'
     );
 
-    // leftColumn!.nativeElement.style.transform = `translateY(${scrollTop}px)`;
-    // middleColumn!.nativeElement.style.transform = `translateY(${scrollTop}px)`;
-    // rightColumn!.nativeElement.style.transform = `translateY(${scrollTop}px)`;
+    leftColumn!.nativeElement.style.transform = `translateY(${-scrollTop * 0.08}px)`;
+    if(middleColumn){
+      middleColumn.nativeElement.style.transform = `translateY(${-scrollTop * 0.06}px)`;
+    }
+    if(rightColumn){
+      rightColumn.nativeElement.style.transform = `translateY(${-scrollTop * 0.04}px)`;
+    }
+
+    if(window.innerWidth < 478) {
+      leftColumn!.nativeElement.style.transform = `translateY(0)`;
+    }
   }
 
   ngOnInit() {
+
+    AOS.init()
+    window.addEventListener('load', AOS.refresh)
+    
     this.store.dispatch(loadPhotos());
     this.images$.subscribe((images) => {
       this.images = images;
@@ -122,7 +145,8 @@ export class GalleryComponent {
           columnIndex++;
         }
         this.imagesPerColumn[columnIndex].push(image);
-      });
+      });      
+
     });
   }
 
