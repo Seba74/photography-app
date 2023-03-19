@@ -60,14 +60,16 @@
     height: 50px;
     transition: width .4s ease-in-out, height .4s ease-in-out;
     animation: cursor 2s infinite;
-    mix-blend-mode: normal;
+    // mix-blend-mode: normal;
     opacity: .8;
     mat-icon {
-        opacity: 1;
+        opacity: 0;
         transition: all .3s ease-in-out;
     }
     p {
         display: flex;
+        font-weight: 700;
+        color: $white-color;
         opacity: 1;
         transition: all .3s ease-in-out;
     }

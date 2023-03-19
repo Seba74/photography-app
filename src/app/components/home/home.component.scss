@@ -6,6 +6,8 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  overflow: hidden;
+  user-select: none;
 
   .see_all {
     display: flex;
@@ -17,6 +19,13 @@
     gap: 10px;
     font-size: 2em;
     margin: 40px 40px 20px 0;
+
+    @media (max-width: 768px) {
+      font-size: 2em;
+      mat-icon {
+        font-size: 3rem !important;
+      }
+    }
 
     mat-icon {
       font-size: 4rem;
@@ -33,6 +42,15 @@ swiper-container {
   margin-left: 10rem;
   margin-top: 10rem;
 
+  @media (max-width: 768px) {
+    margin-left: 2rem;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
   swiper-slide {
     display: flex;
     width: 80%;
@@ -42,6 +60,40 @@ swiper-container {
     border-radius: 20px;
     overflow: hidden;
 
+    .text {
+      display: none;
+    }
+
+    @media (max-width: 768px) {
+      .text {
+        position: absolute;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: max-content;
+        height: max-content;
+        left: 10px;
+        bottom: 10px;
+        padding: 10px;
+        z-index: 100;
+        p{
+          font-size: 2.4rem;
+          font-weight: 500;
+        }
+        &::before{
+          content: '';
+          position: absolute;
+          z-index: -1;
+          width: 94%;
+          height: 60%;
+          background-color: #1f1333;
+          filter: blur(8px);
+
+        }
+      }
+    }
+
     img {
       display: block;
       width: 100%;
@@ -50,5 +102,47 @@ swiper-container {
       object-position: 50% 50%;
     }
   }
+}
 
+
+// SPINNER
+
+.spinner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 120px;
+  height: 120px;
+  display: grid;
+}
+
+.spinner::before,
+.spinner::after {
+  content: "";
+  grid-area: 1/1;
+  background: var(--c) 50%  0, 
+       var(--c) 50%  100%, 
+       var(--c) 100% 50%, 
+       var(--c) 0    50%;
+  background-size: 17.3px 17.3px;
+  background-repeat: no-repeat;
+  animation: spinner-3hs4a3 1.2s infinite;
+}
+
+.spinner::before {
+  --c: radial-gradient(farthest-side,#693cb3 92%,#0000);
+  margin: 5.8px;
+  background-size: 11.5px 11.5px;
+  animation-timing-function: linear;
+}
+
+.spinner::after {
+  --c: radial-gradient(farthest-side,#693cb3 92%,#0000);
+}
+
+@keyframes spinner-3hs4a3 {
+  100% {
+     transform: rotate(.5turn);
+  }
 }

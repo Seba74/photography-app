@@ -1,36 +1,30 @@
+<div class="overlay" [class.active]="overlayActive"></div>
 <section class="gallery__container" [@fadeInOut]>
-
-    <div class="scroll scroll__down-left animate__animated"
-        [ngClass]="{'animate__fadeOutDown animate__infinite animate__slower': !isDown, 'scrolling': isDown}" (mouseenter)="detectHover()"
-        (mouseleave)="detectLeave()">
-        <div class="scroll__down-text">
-            <h1>Go Down</h1>
-        </div>
-        <div class="scroll__down-icon">
-            <mat-icon>arrow_downward</mat-icon>
-        </div>
-    </div>
-    <div class="scroll scroll__down-right animate__animated"
-        [ngClass]="{'animate__fadeOutDown animate__infinite animate__slower': !isDown, 'scrolling': isDown}" (mouseenter)="detectHover()"
-        (mouseleave)="detectLeave()">
-        <div class="scroll__down-text">
-            <h1>Go Down</h1>
-        </div>
-        <div class="scroll__down-icon">
-            <mat-icon>arrow_downward</mat-icon>
-        </div>
-    </div>
     <div class="gallery__section-cover">
         <div class="photo__container">
-            <img src="../../../assets/images/bg-ia.png" alt="">
+            <img src="{{cover.image}}">
+        </div>
+        <div class="text__container">
+            <h1>{{cover.title}}</h1>
         </div>
     </div>
     <div class="gallery-wrapper">
         <div class="gallery-column" #columns *ngFor="let images of imagesPerColumn; let i = index" id="{{i + 1}}">
             <div class="photo-content" *ngFor="let image of images" (mouseenter)="detectImage('')"
                 (mouseleave)="detectLeaveImage()">
-                <img data-aos="fade-up" data-aos-duration="800" (click)="onPreviewImage(image._id)"
-                    [src]="image.imageUrl" alt="">
+                <img data-aos="fade-up" data-aos-duration="400" (click)="onPreviewImage(image._id)" [lazyLoad]="image.imageUrl" defaultImage="../../../assets/images/solid.webp">
+            </div>
+        </div>
+    </div>
+
+    <button *ngIf="isMobile && !showMask && isDown" class="booble" (click)="openMenu()">
+        <mat-icon>expand_more</mat-icon>
+    </button>
+
+    <div *ngIf="!showMask && isDown" [ngClass]="{'nav__desktop': !isMobile, 'nav__mobile': isMobile, 'menuOpen': menuOpen}">       
+        <div class="nav__items" (mouseenter)="detectImage('')" (mouseleave)="detectLeaveImage()">
+            <div class="nav__item" *ngFor="let button of buttons" [ngClass]="{'active': activeButton === button.id}" (click)="onNavigate(button.id)" >
+                    <p >{{button.label | uppercase}}</p>
             </div>
         </div>
     </div>

@@ -1,8 +1,8 @@
-<div class="cursor" #cursor [ngClass]="{'isHovering': isHovering, 'isImg': isImg}">
+<div class="cursor" *ngIf="showCursor" #cursor [ngClass]="{'isHovering': isHovering, 'isImg': isImg}">
     <mat-icon>open_with</mat-icon>
     <p>{{textOnImage}}</p>
 </div>
-<app-navigation (isHovering)="detectHover($event)" [showNav]="showNav"></app-navigation>
+<app-navigation (isHovering)="detectHover($event)" [showNav]="showNav" [loaded]="loaded"></app-navigation>
 <div class="main">
     <router-outlet></router-outlet>
 </div>

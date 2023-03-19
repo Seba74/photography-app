@@ -9,6 +9,7 @@ export class CursorService {
   private noNav = new BehaviorSubject<boolean>(false);
   private textOnImage = new BehaviorSubject<string>('');
   private modalOpen = new BehaviorSubject<boolean>(false);
+  private loaded = new BehaviorSubject<boolean>(false);
 
   setIsHovering(event: boolean) {
     this.isHovering.next(event);
@@ -21,6 +22,10 @@ export class CursorService {
   setIsImg(event: boolean, text: string) {
     this.isImg.next(event);
     this.textOnImage.next(text);
+  }
+
+  setLoaded(event: boolean) {
+    this.loaded.next(event);
   }
 
   getIsHovering() {
@@ -45,6 +50,10 @@ export class CursorService {
 
   getShowNav() {
     return this.noNav.asObservable();
+  }
+
+  getLoaded() {
+    return this.loaded.asObservable();
   }
 
 }

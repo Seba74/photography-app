@@ -1,19 +1,19 @@
-<section class="home__container" [@fadeInOut]>
-        <swiper-container initial-slide="0" slides-per-view="auto" free-mode="true" space-between="30"
-        autoplay-delay="3000" autoplay-disable-on-interaction="false" keyboard="true"
+<ng-container *ngIf="!isLoaded">
+    <div class="spinner"></div>
+</ng-container>
+  
+<section #section class="home__container" [@fadeInOut] style="display: none;">
+        <swiper-container initial-slide="0" slides-per-view="auto" loop="true" space-between="30" autoplay-disable-on-interaction="false" keyboard="true"
         >
-            <swiper-slide (mouseenter)="detectImage(sectionsNames[0])" (mouseleave)="detectLeaveImage()">
-              <img src="../../../assets/images/bg-ia.png" alt="">
-            </swiper-slide>
-            <swiper-slide (mouseenter)="detectImage(sectionsNames[1])" (mouseleave)="detectLeaveImage()">
-                <img src="../../../assets/images//bgc.jpg" alt="">
-            </swiper-slide>
-            <swiper-slide (mouseenter)="detectImage(sectionsNames[2])" (mouseleave)="detectLeaveImage()">
-                <img src="../../../assets/images/luxh8.webp" alt="">
-            </swiper-slide>
-        </swiper-container>
-        <div class="see_all" (mouseenter)="detectHover()" (mouseleave)="detectLeave()" routerLink="/gallery">
-            <p>SEE ALL WORK</p>
+        <swiper-slide *ngFor="let image of images$ | async">
+            <img (load)="onImageLoad()" [src]="image.image" alt="{{image.title}}" (mouseenter)="detectImage(image.title)" (mouseleave)="detectLeaveImage()" (click)="getImage(image)" routerLink="/gallery">
+            <div class="text">
+                <p>{{image.title}}</p>
+            </div>
+        </swiper-slide>
+    </swiper-container>
+    <div class="see_all" (mouseenter)="detectHover()" (mouseleave)="detectLeave()" (click)="getImage(defaultImage)" routerLink="/gallery">
+            <p>VER GALERIA COMPLETA</p>
             <mat-icon class="animate__animated animate__fadeOutRight animate__infinite animate__slow">arrow_forward</mat-icon>
         </div>
 </section>

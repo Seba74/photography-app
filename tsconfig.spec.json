@@ -5,6 +5,10 @@
     "outDir": "./out-tsc/spec",
     "types": [
       "jasmine"
+    ],
+    "typeRoots": [
+      "./node_modules/@types",
+      "./src/global.d.ts"
     ]
   },
   "include": [

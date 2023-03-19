@@ -1,5 +1,8 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Component, EventEmitter, HostListener, Input, Output, ViewChild } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { updatePhoto } from 'src/app/state/actions/photo.actions';
+import { AppState } from 'src/app/state/app.state';
 
 
 @Component({
@@ -18,6 +21,7 @@ import { Component, EventEmitter, HostListener, Input, Output, ViewChild } from 
 export class NavigationComponent {
 
   @Output() isHovering = new EventEmitter<boolean>();
+  @Input() loaded: boolean = false;
   @Input() showNav: boolean = false;
   @ViewChild('menu') menu!: any;
   isOnTop: boolean = true;
@@ -32,10 +36,15 @@ export class NavigationComponent {
     { name: 'linkedin', url: 'https://www.linkedin.com/' },
   ]
   routerLinks = [
-    { name: 'Home', url: '/' },
-    { name: 'Gallery', url: '/gallery' },
-    { name: 'About', url: '/about' },
+    { name: 'Inicio', url: '/' },
+    { name: 'Galeria', url: '/gallery' },
+    { name: 'Sobre Mi', url: '/about' },
   ];
+  defaultImage: {} = {
+    title: 'GALERIA COMPLETA',
+    type: 'all',
+    image: '../../../assets/images/bg-ia.png'
+  }
 
   @HostListener('window:scroll', ['$event'])
   onWindowScroll(e: any) {
@@ -46,7 +55,7 @@ export class NavigationComponent {
     }
   }
 
-  constructor() {}
+  constructor(private store: Store<AppState>) {}
 
   toggleMenu() {
     this.showMenu = !this.showMenu;
@@ -66,5 +75,13 @@ export class NavigationComponent {
 
   detectLeave() {
     this.isHovering.emit(false);
+  }
+
+  getImage(image: any) {
+    this.store.dispatch(updatePhoto({photo: image}));
+    localStorage.setItem('photo', JSON.stringify(image));
+    this.showMenu = false;
+    this.isOnTop = false;
+    this.menuState = 'closed';
   }
 }

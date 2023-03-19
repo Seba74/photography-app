@@ -1,6 +1,6 @@
-<div class="menu-container" [ngClass]="{'showNav': showNav}" #container>
+<div *ngIf="loaded" class="menu-container" [ngClass]="{'showNav': showNav}" #container>
   <div class="title signature" [ngClass]="{'signature-menu': showMenu}" (mouseenter)="detectHover()"
-    (mouseleave)="detectLeave()"  routerLink="">
+    (mouseleave)="detectLeave()"  routerLink="/">
     <div class="logo">
       <img src="../../../assets/images/bg-ia.png" alt="logo">
     </div>
@@ -16,13 +16,13 @@
 
     <div class="routing">
       <a *ngFor="let link of routerLinks" (mouseenter)="detectHover()" (mouseleave)="detectLeave()"
-        class="animate__animated animate__bounceInUp animate__slow" [ngClass]="{'animate__fadeOutDownBig': !showMenu}"
-        routerLink="/{{link.url}}" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="closeMenu()" >{{link.name | uppercase}}</a>
+        class="animate__animated animate__fadeInUpBig" [ngClass]="{'animate__fadeOutDownBig': !showMenu}"
+        routerLink="/{{link.url}}" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="getImage(defaultImage)" >{{link.name | uppercase}}</a>
     </div>
 
     <div class="social-media">
       <a *ngFor="let media of socialMedia" [href]="media.url" target="_blank"
-        class="animate__animated animate__bounceInUp animate__slow" [ngClass]="{'animate__fadeOutDownBig': !showMenu}"
+        class="animate__animated animate__fadeInUpBig" [ngClass]="{'animate__fadeOutDownBig': !showMenu}"
         (mouseenter)="detectHover()" (mouseleave)="detectLeave()">{{media.name | uppercase}}</a>
     </div>
   </div>

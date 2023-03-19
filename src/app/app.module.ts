@@ -4,7 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 
 // Store Modules
-import { StoreModule } from '@ngrx/store';
+import { ActionReducer, MetaReducer, StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { EffectsModule } from '@ngrx/effects';
 import { reducers } from './state/app.state';
@@ -19,15 +19,18 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatIconModule } from '@angular/material/icon';
 
 // Components and others services
+import { localStorageSync } from 'ngrx-store-localstorage';
 
+export function localStorageSyncReducer(reducer: ActionReducer<any>): ActionReducer<any> {
+  return localStorageSync({keys: ['photo']})(reducer);
+}
 
-
+const metaReducers: Array<MetaReducer<any, any>> = [localStorageSyncReducer];
 @NgModule({
   declarations: [
     AppComponent,
   ],
   imports: [
-
     // Angular Modules
     BrowserModule,
     AppRoutingModule,
@@ -35,7 +38,9 @@ import { MatIconModule } from '@angular/material/icon';
     HttpClientModule,
 
     // Store Modules
-    StoreModule.forRoot(reducers),
+    StoreModule.forRoot(reducers,
+      {metaReducers}
+    ),
     StoreDevtoolsModule.instrument({ name: 'Photography App', logOnly: isDevMode()}),
     EffectsModule.forRoot([PhotoEffect]),
 

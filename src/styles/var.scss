@@ -8,13 +8,12 @@ $secondary-color: #676;
 $white-color: #fff;
 $black-color: #000;
 
-
 // Font Family
-$font-family: 'Roboto', sans-serif;
-$mori-font: 'Mori';
+$font-family: "Roboto", sans-serif;
+$mori-font: "Mori";
 @font-face {
-    font-family: $mori-font;
-    src: url("../assets/fonts/PPMori-Regular.otf") format("opentype");
+  font-family: $mori-font;
+  src: url("../assets/fonts/PPMori-Regular.otf") format("opentype");
 }
 
 // Font Size
@@ -22,29 +21,26 @@ $text-size: 1.2rem;
 $small-text-size: 1rem;
 $big-text-size: 1.5rem;
 
-
 // Font Weight
 $font-weight: 400;
 $bold-font-weight: 700;
 
-
 // Line Height
 $line-height: 1.5;
-
 
 // Letter Spacing
 $letter-spacing: 0.1rem;
 
-
 // Border Radius
 $border-radius: 0.5rem;
 
-
 // Box Shadow
 $box-shadow: 0 0.5rem 1rem rgba($black-color, 0.2);
-
 
 // Transition
 $transition: all 0.3s ease-in-out;
 $cubic: cubic-bezier(0.11, 0, 0.5, 0);
 $transform-cubic: transform 0.6s cubic-bezier(0.11, 0, 0.5, 0);
+
+$background-color: #693cb3;
+$background-image: ulr("../assets/images/topography.svg");
